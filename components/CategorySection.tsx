@@ -15,7 +15,7 @@ const categories = [
   {
     label: "Others",
     href: "/collections/others",
-    image: "/images/others.jpg"
+    image: "/images/others-apparel.jpg"
   }
 ];
 
@@ -49,7 +49,7 @@ const CategorySection = () => {
             />
 
             {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent transition-opacity duration-300 group-hover:from-black/80" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent transition-opacity duration-300 group-hover:from-black/80" />
 
             {/* Text */}
             <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6">
