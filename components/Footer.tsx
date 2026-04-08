@@ -3,7 +3,7 @@ import FooterLink from "./FooterLink";
 
 const Footer = () => {
   return (
-    <div className="mt-8 border-t border px-5 py-10 lg:p-10">
+    <div className="border-t border px-5 py-10 lg:p-10">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 justify-center">
         <div>
           <p className="font-bold text-base lg:text-base mb-2">Resources</p>

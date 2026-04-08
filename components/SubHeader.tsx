@@ -17,13 +17,16 @@ const Subheader = async () => {
 
   return (
     <div className="hidden sticky top-0 lg:flex items-center justify-between py-4 px-4 lg:px-20 bg-[white] z-50 shadow-xs">
-      <Link href="/" className="text-xl font-bold">
-        Shopify
+      <Link
+        href="/"
+        className="text-xl text-amber-600 font-bold tracking-normal"
+      >
+        ShopCore
       </Link>
-      <div className="flex gap-8 text-xl font-semibold">
-        <Link href="#">Men</Link>
-        <Link href="#">Women</Link>
-        <Link href="#">Others</Link>
+      <div className="flex gap-4 text-sm font-semibold">
+        <Link href="/">Home</Link>
+        <Link href="faq">FAQ</Link>
+        <Link href="instructions">How to order</Link>
       </div>
       <Link href="/cart" className="flex items-center gap-2 font-bold">
         <ShoppingCart />

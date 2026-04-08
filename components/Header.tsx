@@ -71,7 +71,7 @@ const Header = ({ session }: HeaderProps) => {
         </Link>
 
         {session ? (
-          <div className="hidden lg:flex gap-2 text-sm font-medium">
+          <div className="hidden lg:flex gap-2 text-xs font-bold">
             <Link href="#">
               <p>Hi, {session?.user?.name}</p>
             </Link>

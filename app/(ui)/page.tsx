@@ -7,12 +7,17 @@ export default async function Home() {
     cache: "no-store"
   });
 
+  if (!res.ok) {
+    throw new Error("Failed to fetch products");
+  }
+
   const products = await res.json();
+
   return (
     <div className="relative">
       <Hero />
       <CategorySection />
-      <Highlights />
+      <Highlights products={products} />
     </div>
   );
 }

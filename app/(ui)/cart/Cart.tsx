@@ -70,7 +70,7 @@ export default function Cart({ cartItems }: CartProps) {
   };
 
   return (
-    <div className="py-10">
+    <div className="py-10 px-4">
       {items.length === 0 ? (
         <div className="flex flex-col items-center">
           <div className="relative w-full h-64">
@@ -82,7 +82,7 @@ export default function Cart({ cartItems }: CartProps) {
             />
           </div>
           <p className="mt-16">No items in your cart yet.</p>
-          <p className="mt-2">
+          <p className="mt-2 text-center text-sm text-gray-500">
             Looks like you haven't added anything to your cart yet. Let's find
             something you'll love!
           </p>
@@ -183,7 +183,7 @@ export default function Cart({ cartItems }: CartProps) {
               </p>
             </div>
             <div className="">
-              <button className="w-full border py-4 font-bold bg-black text-white mt-8 rounded-full cursor-pointer hover:opacity-60">
+              <button className="w-full border py-4 font-bold bg-amber-600 text-white mt-8 rounded-full cursor-pointer hover:opacity-70">
                 Check Out
               </button>
             </div>

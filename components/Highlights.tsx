@@ -9,18 +9,13 @@ type Product = {
   image: string;
 };
 
-const Highlights = async () => {
-  const res = await fetch("https://fakestoreapi.com/products", {
-    cache: "no-store"
-  });
-
-  const products: Product[] = await res.json();
-
+const Highlights = ({ products }: { products: Product[] }) => {
   const filterProducts = products.filter(
     (product) =>
       product.category === "men's clothing" ||
       product.category === "women's clothing"
   );
+
   return (
     <section className="px-10 md:px-20 mt-12">
       <p className="text-center text-sm md:text-2xl font-bold">Featured</p>
@@ -31,7 +26,7 @@ const Highlights = async () => {
               <div className="relative productBg w-full h-40 md:h-50 cursor-pointer">
                 <Image
                   src={product.image}
-                  alt=""
+                  alt={product.title}
                   fill
                   className="object-contain p-4"
                 />
