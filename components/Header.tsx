@@ -17,7 +17,7 @@ import LogoutButton from "./LogoutButton";
 interface HeaderProps {
   session: {
     user: {
-      id: number;
+      id: string;
       name: string;
       email: string;
     };
