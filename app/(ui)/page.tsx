@@ -8,7 +8,7 @@ export default async function Home() {
   // 🔹 Safe fetch
   try {
     const res = await fetch("https://fakestoreapi.com/products", {
-      cache: "no-store"
+      next: { revalidate: 60 } // cache for 60 seconds
     });
 
     if (!res.ok) {

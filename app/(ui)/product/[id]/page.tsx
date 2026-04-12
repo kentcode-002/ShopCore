@@ -16,7 +16,7 @@ export default async function ProductPage({ params }: PageProps) {
   // 🔹 Fetch product safely
   try {
     const res = await fetch(`https://fakestoreapi.com/products/${id}`, {
-      cache: "no-store"
+      next: { revalidate: 60 } // cache for 60 seconds
     });
 
     if (!res.ok) {
