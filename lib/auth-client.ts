@@ -9,7 +9,8 @@ export const signUp = async (email: string, password: string, name: string) => {
       password,
       name,
       callbackURL: "/"
-    }
+    },
+    headers: await headers() // ✅ add this
   });
 
   return result;
@@ -21,7 +22,8 @@ export const signIn = async (email: string, password: string) => {
       email,
       password,
       callbackURL: "/"
-    }
+    },
+    headers: await headers() // ✅ add this
   });
 
   return result;
