@@ -1,7 +1,8 @@
 export const faq = [
   {
     question: "What payment methods do you accept?",
-    answer: "We accept all major credit cards, PayPal, and GCash."
+    answer:
+      "Paying with card is currently unavailable. We accept cash on delivery (COD) for all orders."
   },
   {
     question: "How long does shipping take?",

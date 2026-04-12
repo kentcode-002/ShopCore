@@ -3,15 +3,23 @@ import CategorySection from "@/components/CategorySection";
 import Highlights from "@/components/Highlights";
 
 export default async function Home() {
-  const res = await fetch("https://fakestoreapi.com/products", {
-    cache: "no-store"
-  });
+  let products: any[] = [];
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch products");
+  // 🔹 Safe fetch
+  try {
+    const res = await fetch("https://fakestoreapi.com/products", {
+      cache: "no-store"
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch products");
+    }
+
+    products = await res.json();
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    products = []; // fallback
   }
-
-  const products = await res.json();
 
   return (
     <div className="relative">

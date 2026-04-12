@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { div } from "framer-motion/client";
 
 interface CollectionProps {
   products: Product[];
@@ -36,6 +35,18 @@ const Collections = ({ products }: CollectionProps) => {
       ? products
       : products.filter((product) => product.category === categoryMap[value]);
 
+  // ✅ 🔥 IMPORTANT: handle empty state
+  if (!products || products.length === 0) {
+    return (
+      <div className="p-10 text-center">
+        <h2 className="text-xl font-semibold">No products available</h2>
+        <p className="text-gray-500 mt-2">
+          Products are currently unavailable. Please try again later.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="px-0 lg:px-20 pb-10">
       <div className="mt-10 px-5">
@@ -56,39 +67,46 @@ const Collections = ({ products }: CollectionProps) => {
           </button>
         ))}
       </div>
-      {/* Products Grid */}
-      <div className="mt-8 grid grid-cols-2 lg:grid-cols-3 gap-1 lg:gap-2">
-        <AnimatePresence mode="wait">
-          {filteredProducts.map((product) => (
-            <motion.div
-              key={product.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.25 }}
-            >
-              <Link href={`/product/${product.id}`}>
-                <div className="relative productBg w-full h-40 lg:h-60">
-                  <Image
-                    src={product.image}
-                    alt={product.title}
-                    fill
-                    className="object-contain p-4"
-                  />
-                </div>
 
-                <div className="flex flex-col gap-1 px-2">
-                  <p className="text-sm font-bold">{product.title}</p>
-                  <p className="text-sm text-[gray] font-bold capitalize">
-                    {product.category}
-                  </p>
-                  <p className="text-sm font-bold">$ {product.price}</p>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </div>
+      {/* 🔥 Handle empty filtered results */}
+      {filteredProducts.length === 0 ? (
+        <div className="text-center mt-10 text-gray-500">
+          No products found in this category.
+        </div>
+      ) : (
+        <div className="mt-8 grid grid-cols-2 lg:grid-cols-3 gap-1 lg:gap-2">
+          <AnimatePresence mode="wait">
+            {filteredProducts.map((product) => (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.25 }}
+              >
+                <Link href={`/product/${product.id}`}>
+                  <div className="relative productBg w-full h-40 lg:h-60">
+                    <Image
+                      src={product.image}
+                      alt={product.title}
+                      fill
+                      className="object-contain p-4"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-1 px-2">
+                    <p className="text-sm font-bold">{product.title}</p>
+                    <p className="text-sm text-gray-500 font-bold capitalize">
+                      {product.category}
+                    </p>
+                    <p className="text-sm font-bold">$ {product.price}</p>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,30 +1,39 @@
-// app/product/[id]/page.tsx
-
 import { auth } from "@/auth";
 import Product from "./Product";
 import { headers } from "next/headers";
 
-export default async function ProductPage({
-  params
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
+type PageProps = {
+  params: {
+    id: string;
+  };
+};
 
-  const res = await fetch(`https://fakestoreapi.com/products/${id}`, {
-    cache: "no-store"
-  });
+export default async function ProductPage({ params }: PageProps) {
+  const { id } = params;
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch product");
+  let product: any = null;
+
+  // 🔹 Fetch product safely
+  try {
+    const res = await fetch(`https://fakestoreapi.com/products/${id}`, {
+      cache: "no-store"
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch product");
+    }
+
+    product = await res.json();
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    product = null; // fallback
   }
 
-  const product = await res.json();
-
-  // Session
+  // 🔹 Get session (this now ALWAYS runs)
   const session = await auth.api.getSession({
     headers: await headers()
   });
 
+  // 🔹 Always return JSX (never return raw data)
   return <Product session={session} product={product} />;
 }
