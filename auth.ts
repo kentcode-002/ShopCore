@@ -6,6 +6,10 @@ import { nextCookies } from "better-auth/next-js";
 const client = new MongoClient(process.env.DATABASE_URL!);
 const db = client.db();
 
+if (!db) {
+  throw new Error("Failed to connect to the database.");
+}
+
 export const auth = betterAuth({
   database: mongodbAdapter(db, {
     // Optional: if you don't provide a client, database transactions won't be enabled.
