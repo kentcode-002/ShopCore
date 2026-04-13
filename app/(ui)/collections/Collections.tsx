@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSearchParams } from "next/navigation";
 
 interface CollectionProps {
   products: Product[];
@@ -28,7 +29,13 @@ const categoryMap: Record<string, string> = {
 const tabs = ["all", "men", "women", "jewelry", "electronics"];
 
 const Collections = ({ products }: CollectionProps) => {
-  const [value, setValue] = useState<string>("all");
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get("category") ?? "all";
+
+  // Validate it's a known tab, fallback to "all"
+  const initialTab = tabs.includes(categoryParam) ? categoryParam : "all";
+
+  const [value, setValue] = useState<string>(initialTab);
 
   const filteredProducts =
     value === "all"

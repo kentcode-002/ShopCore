@@ -23,18 +23,6 @@ const Highlights = ({ products = [] }: { products?: Product[] }) => {
     );
   }
 
-  // 🔥 2. No filtered products
-  if (products.length === 0) {
-    return (
-      <section className="px-10 md:px-20 mt-12 text-center">
-        <p className="text-sm md:text-2xl font-bold">Featured</p>
-        <div className="mt-6 text-gray-500">
-          No featured products available.
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section className="px-10 md:px-20 mt-12">
       <p className="text-center text-sm md:text-2xl font-bold">Featured</p>

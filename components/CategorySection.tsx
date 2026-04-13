@@ -4,17 +4,17 @@ import Image from "next/image";
 const categories = [
   {
     label: "Mens Apparel",
-    href: "/collections/mens-apparel",
+    href: "/collections?category=men",
     image: "/images/mens-apparel.jpg"
   },
   {
     label: "Womens Apparel",
-    href: "/collections/womens-apparel",
+    href: "/collections?category=women",
     image: "/images/womens-apparel.jpg"
   },
   {
     label: "Others",
-    href: "/collections/others",
+    href: "/collections?category=jewelry",
     image: "/images/others-apparel.jpg"
   }
 ];
