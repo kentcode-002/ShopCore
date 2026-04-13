@@ -25,6 +25,7 @@ const Subheader = async () => {
       </Link>
       <div className="flex gap-4 text-sm font-semibold">
         <Link href="/">Home</Link>
+        <Link href="/about">About</Link>
         <Link href="faq">FAQ</Link>
         <Link href="instructions">How to order</Link>
       </div>

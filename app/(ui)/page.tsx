@@ -20,7 +20,7 @@ export default async function Home() {
     products = await res.json();
   } catch (error) {
     console.error("Error fetching products:", error);
-    products = []; // fallback
+    // products = [];
   }
 
   return (

@@ -25,7 +25,7 @@ const Footer = () => {
         <div>
           <p className="font-bold text-base lg:text-base mb-2">Company</p>
           <div className="grid grid-cols-1 gap-4">
-            <FooterLink href="#">About us</FooterLink>
+            <FooterLink href="/about">About us</FooterLink>
             <FooterLink href="#">news</FooterLink>
             <FooterLink href="#">report a concern</FooterLink>
           </div>
