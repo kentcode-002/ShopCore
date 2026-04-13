@@ -7,20 +7,18 @@ export const dynamic = "force-dynamic"; // 👈 skip static generation
 export default async function Home() {
   let products: any[] = [];
 
-  // 🔹 Safe fetch
   try {
-    const res = await fetch("https://fakestoreapi.com/products", {
-      // next: { revalidate: 60 } // cache for 60 seconds
-    });
+    const res = await fetch("https://fakestoreapi.com/products", {});
 
     if (!res.ok) {
       throw new Error("Failed to fetch products");
     }
 
     products = await res.json();
+    console.log("Fetched products:", products);
   } catch (error) {
     console.error("Error fetching products:", error);
-    // products = [];
+    products = [];
   }
 
   return (
