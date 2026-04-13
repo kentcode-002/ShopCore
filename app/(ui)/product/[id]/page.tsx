@@ -8,6 +8,8 @@ type PageProps = {
   };
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function ProductPage({ params }: PageProps) {
   const { id } = params;
 
@@ -16,7 +18,7 @@ export default async function ProductPage({ params }: PageProps) {
   // 🔹 Fetch product safely
   try {
     const res = await fetch(`https://fakestoreapi.com/products/${id}`, {
-      next: { revalidate: 60 } // cache for 60 seconds
+      // next: { revalidate: 60 } // cache for 60 seconds
     });
 
     if (!res.ok) {

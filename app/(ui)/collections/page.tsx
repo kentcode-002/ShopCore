@@ -9,13 +9,15 @@ type Product = {
   image: string;
 };
 
+export const dynamic = "force-dynamic"; // 👈 skip static generation
+
 export default async function CollectionPage() {
   let products: Product[] = [];
 
   // 🔹 Safe fetch
   try {
     const res = await fetch("https://fakestoreapi.com/products", {
-      next: { revalidate: 60 } // cache for 60 seconds
+      // next: { revalidate: 60 } // cache for 60 seconds
     });
 
     if (!res.ok) {
