@@ -86,7 +86,7 @@ const Header = ({ session }: HeaderProps) => {
           <div className="hidden lg:flex gap-2 text-sm font-semibold">
             <Link href={session ? "#" : "/login"}>Login</Link>
             <span>|</span>
-            <Link href={session ? "#" : "/signup"}>SignUp</Link>
+            <Link href={session ? "#" : "/sign-up"}>SignUp</Link>
           </div>
         )}
 
