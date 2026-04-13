@@ -16,15 +16,14 @@ export default async function CollectionPage() {
 
   // 🔹 Safe fetch
   try {
-    const res = await fetch("https://fakestoreapi.com/products", {
-      // next: { revalidate: 60 } // cache for 60 seconds
-    });
+    const res = await fetch("https://fakestoreapi.com/products");
 
     if (!res.ok) {
       throw new Error("Failed to fetch products");
     }
 
-    products = await res.json();
+    const data = await res.json();
+    products = data;
   } catch (error) {
     console.error("Error fetching products:", error);
     products = []; // fallback
