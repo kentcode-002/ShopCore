@@ -13,17 +13,19 @@ export default async function Home() {
     });
 
     console.log("STATUS:", res.status);
+    console.log("OK:", res.ok);
+
+    const text = await res.text();
+
+    console.log("RAW RESPONSE:", text);
 
     if (!res.ok) {
-      throw new Error("Failed to fetch products");
+      throw new Error(`Failed with status ${res.status}`);
     }
 
-    const data = await res.json();
-
-    products = data;
+    products = JSON.parse(text);
   } catch (error) {
-    console.error("Error fetching products:", error);
-    products = [];
+    console.error("FULL ERROR:", error);
   }
 
   return (
