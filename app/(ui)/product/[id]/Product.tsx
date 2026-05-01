@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -23,32 +23,52 @@ interface ProductSession {
 }
 
 export default function Product({
-  product,
+  productId,
   session
 }: {
-  product: Product;
+  productId: string;
 } & ProductSession) {
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState<number>(1);
   const [size, setSize] = useState<string>("");
-  const [price, setPrice] = useState<number>(product.price);
-  const [image, setImage] = useState<string>(product.image);
-  const [productName, setProductName] = useState<string>(product.title);
   const [error, setError] = useState<string>("");
 
   const categoriesWithSizes = ["men's clothing", "women's clothing"];
   const sizes = ["S", "M", "L"];
-
   const router = useRouter();
 
+  useEffect(() => {
+    async function fetchProduct() {
+      try {
+        const res = await fetch(
+          `https://fakestoreapi.com/products/${productId}`
+        );
+        if (!res.ok) throw new Error("Failed to fetch");
+        const data = await res.json();
+        setProduct(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProduct();
+  }, [productId]);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // 🚨 prevent page reload
+    e.preventDefault();
 
     if (!session) {
       router.push("/login");
       return;
     }
 
-    if (categoriesWithSizes.includes(product.category.toLowerCase()) && !size) {
+    if (
+      categoriesWithSizes.includes(product?.category.toLowerCase() ?? "") &&
+      !size
+    ) {
       setError("Please select a size");
       return;
     }
@@ -59,12 +79,12 @@ export default function Product({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userId: session.user.id,
-          productId: product.id,
-          productName,
+          productId: product?.id,
+          productName: product?.title,
           size,
           quantity,
-          price,
-          image
+          price: product?.price,
+          image: product?.image
         })
       });
 
@@ -76,6 +96,22 @@ export default function Product({
 
     router.refresh();
   };
+
+  if (loading) {
+    return (
+      <div className="px-5 lg:px-10 py-20 text-center text-gray-500">
+        Loading product...
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="px-5 lg:px-10 py-20 text-center text-gray-500">
+        Product not found.
+      </div>
+    );
+  }
 
   return (
     <div className="px-5 lg:px-10 py-20">
@@ -109,7 +145,6 @@ export default function Product({
             <div>
               <div className="flex items-center gap-8">
                 <span className="text-sm lg:text-base font-semibold">Size</span>
-
                 <div className="flex gap-4">
                   {sizes.map((s) => (
                     <label key={s} className="cursor-pointer">
@@ -134,7 +169,6 @@ export default function Product({
           {/* QUANTITY */}
           <div className="flex gap-4 items-center">
             <p className="text-sm lg:text-base font-semibold">Quantity</p>
-
             <select
               className="border border-black px-4 py-1"
               value={quantity}
