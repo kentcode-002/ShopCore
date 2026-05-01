@@ -9,7 +9,8 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "fakestoreapi.com"
       }
-    ]
+    ],
+    domains: ["fakestoreapi.com", "fakestoreapi.com/images"]
   }
 };
 
