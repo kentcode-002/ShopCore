@@ -4,9 +4,7 @@ import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 
 type PageProps = {
-  params: Promise<{
-    id: string;
-  }>;
+  params: Promise<{ id: string }>;
 };
 
 export const dynamic = "force-dynamic";
@@ -21,9 +19,7 @@ export default async function ProductPage({ params }: PageProps) {
       cache: "no-store"
     });
 
-    if (!res.ok || res.status === 404) {
-      product = null; // let it fall through
-    } else {
+    if (res.ok) {
       const text = await res.text();
       if (text) {
         product = JSON.parse(text);
@@ -31,12 +27,10 @@ export default async function ProductPage({ params }: PageProps) {
     }
   } catch (err) {
     console.error("Product fetch error:", err);
+    // do NOT rethrow — let the notFound() below handle it
   }
 
-  // ✅ notFound() called outside try/catch — Next.js can handle it properly
-  if (!product) {
-    return notFound();
-  }
+  if (!product) notFound();
 
   const session = await auth.api.getSession({
     headers: await headers()
