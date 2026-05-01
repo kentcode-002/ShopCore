@@ -29,7 +29,8 @@ export default async function ProductPage({ params }: PageProps) {
     console.error("Product fetch error:", err);
     // do NOT rethrow — let the notFound() below handle it
   }
-
+  console.log("Product ID:", id);
+  console.log("Product result:", product);
   if (!product) notFound();
 
   const session = await auth.api.getSession({
